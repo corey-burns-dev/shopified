@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-home",
+      "settings": {
+        "heading": "Cart",
+        "subheading": "Your cart is currently shown in the standard cart route."
+      }
+    }
+  },
+  "order": ["main"]
+}

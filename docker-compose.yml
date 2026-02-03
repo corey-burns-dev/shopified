@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # Main Shopify Development Container
+  shopify-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shopify-dev
+    restart: unless-stopped
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+      - shopify_cache:/root/.cache
+      - node_modules:/workspace/node_modules
+    ports:
+      - "9292:9292"  # Shopify Theme Dev Server
+      - "3000:3000"  # App dev server
+    environment:
+      - NODE_ENV=development
+      - SHOPIFY_CLI_THEME_TOKEN=${SHOPIFY_CLI_THEME_TOKEN:-}
+      - SHOPIFY_FLAG_STORE=${SHOPIFY_FLAG_STORE:-}
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+    networks:
+      - shopify-network
+
+  # PostgreSQL for Shopify App Development
+  postgres:
+    image: postgres:15-alpine
+    container_name: shopify-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: shopify_app_dev
+      POSTGRES_USER: shopify
+      POSTGRES_PASSWORD: shopify_secret
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - shopify-network
+
+  # Redis for caching and sessions
+  redis:
+    image: redis:alpine
+    container_name: shopify-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - shopify-network
+
+networks:
+  shopify-network:
+    driver: bridge
+
+volumes:
+  shopify_cache:
+    driver: local
+  node_modules:
+    driver: local
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local

@@ -1,0 +1,23 @@
+<header class="site-header">
+  <div class="container">
+    <h1 class="brand">
+      <a href="{{ routes.root_url }}">{{ settings.brand_name }}</a>
+    </h1>
+    <nav class="nav">
+      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Header"
+    }
+  ]
+}
+{% endschema %}

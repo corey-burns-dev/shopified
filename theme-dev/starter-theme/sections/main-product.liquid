@@ -1,0 +1,31 @@
+<section class="product">
+  <div class="container">
+    <div class="product-media">
+      {{ product.featured_image | image_url: width: 700 | image_tag: alt: product.title }}
+    </div>
+    <div class="product-details">
+      <h1>{{ product.title }}</h1>
+      <p class="price">{{ product.price | money }}</p>
+      {% if product.compare_at_price > product.price %}
+        <span class="badge">On Sale</span>
+      {% endif %}
+      <div class="rte">{{ product.description }}</div>
+      <form method="post" action="/cart/add">
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <button class="button" type="submit">Add to cart</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Main product"
+    }
+  ]
+}
+{% endschema %}

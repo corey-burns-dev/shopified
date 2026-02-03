@@ -1,0 +1,17 @@
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; {{ "now" | date: "%Y" }} {{ settings.brand_name }}</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
+}
+{% endschema %}

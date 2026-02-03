@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Theme settings",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brand_name",
+        "label": "Brand name",
+        "default": "Shopified"
+      },
+      {
+        "type": "color",
+        "id": "brand_color",
+        "label": "Brand color",
+        "default": "#111111"
+      }
+    ]
+  }
+]

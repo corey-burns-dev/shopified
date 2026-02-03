@@ -1,0 +1,32 @@
+<section class="collection">
+  <div class="container">
+    <h2>{{ collection.title }}</h2>
+    {% if collection.products_count == 0 %}
+      <p>No products yet.</p>
+    {% else %}
+      <ul class="grid">
+        {% for product in collection.products %}
+          <li class="card">
+            <a href="{{ product.url }}">
+              {{ product.featured_image | image_url: width: 400 | image_tag: alt: product.title }}
+              <h3>{{ product.title }}</h3>
+              <p>{{ product.price | money }}</p>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main collection",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Main collection"
+    }
+  ]
+}
+{% endschema %}
